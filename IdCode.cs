@@ -49,7 +49,7 @@ namespace isikukood
         {
             return Convert.ToInt32(_idCode.Substring(1, 2));
         }
-
+        
         public int GetFullYear()
         {
             int genderNumber = GetGenderNumber();
@@ -169,7 +169,7 @@ namespace isikukood
                 Console.WriteLine("Vale isikukood!");
                 returndata = false;
             }
-            Console.ForegroundColor=ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("\nVajutage Enter...");
             Console.ReadLine();
             return returndata;
@@ -177,9 +177,8 @@ namespace isikukood
 
         public string CheckGender(IdCode idcode)
         {
-            string stringidcode = idcode.ToString();
-            int intidcode = Convert.ToInt32(stringidcode[0]);
-            double result = intidcode % 2;
+            int gendernum = idcode.GetGenderNumber();
+            double result = gendernum % 2;
             if (result==0)
             {
                 return "Tüdruk";
@@ -188,6 +187,192 @@ namespace isikukood
             {
                 return "Poiss";
             }
+        }
+
+        public string CheckBirth(IdCode idcode)
+        {
+            List<char> idcodeList = idcode._idCode.ToList();
+            string HaiglaNum = idcodeList[7].ToString() + idcodeList[8].ToString() + idcodeList[9].ToString();
+            int HaiglaNumInt = Convert.ToInt32(HaiglaNum);
+            string haigla="";
+            if (HaiglaNumInt >= 1 && HaiglaNumInt < 11)
+            {
+                haigla = "Kuressaare Haigla";
+            }
+            else if (HaiglaNumInt >= 11 && HaiglaNumInt < 20)
+            {
+                haigla = "Tartu Ülikooli Naistekliinik, Tartumaa, Tartu";
+            }
+            else if (HaiglaNumInt >= 20 && HaiglaNumInt < 221)
+            {
+                haigla = "Ida-Tallinna Keskhaigla, Pelgulinna sünnitusmaja, Hiiumaa, Keila, Rapla haigla, Loksa haigla";
+            }
+            else if (HaiglaNumInt >= 221 && HaiglaNumInt < 271)
+            {
+                haigla = "Ida-Viru Keskhaigla (Kohtla-Järve, endine Jõhvi)";
+            }
+            else if (HaiglaNumInt >= 271 && HaiglaNumInt < 371)
+            {
+                haigla = "Maarjamõisa Kliinikum (Tartu), Jõgeva Haigla";
+            }
+            else if (HaiglaNumInt >= 371 && HaiglaNumInt < 421)
+            {
+                haigla = "Narva Haigla";
+            }
+            else if (HaiglaNumInt >= 421 && HaiglaNumInt < 471)
+            {
+                haigla = "Pärnu Haigla";
+            }
+            else if (HaiglaNumInt >= 471 && HaiglaNumInt < 491)
+            {
+                haigla = "Pelgulinna Sünnitusmaja (Tallinn), Haapsalu haigla";
+            }
+            else if (HaiglaNumInt >= 491 && HaiglaNumInt < 521)
+            {
+                haigla = "Järvamaa Haigla (Paide)";
+            }
+            else if (HaiglaNumInt >= 521 && HaiglaNumInt < 571)
+            {
+                haigla = "Rakvere, Tapa haigla";
+            }
+            else if (HaiglaNumInt >= 571 && HaiglaNumInt < 601)
+            {
+                haigla = "Valga Haigla";
+            }
+            else if (HaiglaNumInt >= 601 && HaiglaNumInt < 651)
+            {
+                haigla = "Viljandi Haigla";
+            }
+            else if (HaiglaNumInt >= 651 && HaiglaNumInt < 701)
+            {
+                haigla = "Lõuna-Eesti Haigla (Võru), Põlva Haigla";
+            }
+            return haigla;
+            
+        }
+
+        public string GetBirthDateFull(IdCode idcode)
+        {
+            string birthday = idcode.GetBirthDate().ToString();    
+            string month = "";
+            List<string> birthdayInList = birthday.Split('.').ToList();
+            switch (birthdayInList[1])
+            {
+                case "01": month = "Jaanuar"; break;
+                case "02": month = "Veebruar"; break;
+                case "03": month = "Märts"; break;
+                case "04": month = "Aprill"; break;
+                case "05": month = "Mai"; break;
+                case "06": month = "Juuni"; break;
+                case "07": month = "Juuli"; break;
+                case "08": month = "August"; break;
+                case "09": month = "September"; break;
+                case "10": month = "Oktoober"; break;
+                case "11": month = "November"; break;
+                case "12": month = "Detsember"; break;
+            }
+            return birthdayInList[0] +" "+ month + ", " + birthdayInList[2]+" a.";
+        }
+
+        public string ZodiacSign(IdCode idcode)
+        {
+            string birthday = idcode.GetBirthDate().ToString();
+            List<string> birthdayInList = birthday.Split('.').ToList();
+            string zodiac="";
+            /*
+             [0] - день
+             [1] - месяц
+             [2] - год
+             */
+            if (Convert.ToInt32(birthdayInList[1])==3 && Convert.ToInt32(birthdayInList[0])>=21 || Convert.ToInt32(birthdayInList[1]) == 4 && Convert.ToInt32(birthdayInList[0]) <= 20)
+            {
+                zodiac = "Jäär";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 4 && Convert.ToInt32(birthdayInList[0]) >= 21 || Convert.ToInt32(birthdayInList[1]) == 5 && Convert.ToInt32(birthdayInList[0]) <= 20)
+            {
+                zodiac = "Sõnn";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 5 && Convert.ToInt32(birthdayInList[0]) >= 21 || Convert.ToInt32(birthdayInList[1]) == 6 && Convert.ToInt32(birthdayInList[0]) <= 21)
+            {
+                zodiac = "Kaksikud";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 6 && Convert.ToInt32(birthdayInList[0]) >= 22 || Convert.ToInt32(birthdayInList[1]) == 7 && Convert.ToInt32(birthdayInList[0]) <= 22)
+            {
+                zodiac = "Vähk";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 7 && Convert.ToInt32(birthdayInList[0]) >= 23 || Convert.ToInt32(birthdayInList[1]) == 8 && Convert.ToInt32(birthdayInList[0]) <= 23)
+            {
+                zodiac = "lõvi";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 8 && Convert.ToInt32(birthdayInList[0]) >= 24 || Convert.ToInt32(birthdayInList[1]) == 9 && Convert.ToInt32(birthdayInList[0]) <= 23)
+            {
+                zodiac = "Neitsi";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 9 && Convert.ToInt32(birthdayInList[0]) >= 24 || Convert.ToInt32(birthdayInList[1]) == 10 && Convert.ToInt32(birthdayInList[0]) <= 23)
+            {
+                zodiac = "Kaalud";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 10 && Convert.ToInt32(birthdayInList[0]) >= 24 || Convert.ToInt32(birthdayInList[1]) == 11 && Convert.ToInt32(birthdayInList[0]) <= 22)
+            {
+                zodiac = "Skorpion";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 11 && Convert.ToInt32(birthdayInList[0]) >= 23 || Convert.ToInt32(birthdayInList[1]) == 12 && Convert.ToInt32(birthdayInList[0]) <= 21)
+            {
+                zodiac = "Ambur";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 12 && Convert.ToInt32(birthdayInList[0]) >= 22 || Convert.ToInt32(birthdayInList[1]) == 1 && Convert.ToInt32(birthdayInList[0]) <= 20)
+            {
+                zodiac = "Kaljukits";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 1 && Convert.ToInt32(birthdayInList[0]) >= 21 || Convert.ToInt32(birthdayInList[1]) == 2 && Convert.ToInt32(birthdayInList[0]) <= 20)
+            {
+                zodiac = "Veevalaja";
+            }
+            else if (Convert.ToInt32(birthdayInList[1]) == 2 && Convert.ToInt32(birthdayInList[0]) >= 21 || Convert.ToInt32(birthdayInList[1]) == 3 && Convert.ToInt32(birthdayInList[0]) <= 20)
+            {
+                zodiac = "Kala";
+            }
+            return zodiac;
+        }
+
+        public string TalismanStone(IdCode idcode)
+        {
+            string birthday = idcode.GetBirthDate().ToString().Replace('.',' ').Replace(" ","");
+            int sum=0;
+            do
+            {
+                foreach (char item in birthday)
+                {
+                    sum += Convert.ToInt32(item.ToString());
+                }
+                birthday = Convert.ToString(sum);
+                sum = 0;
+            }
+            while (birthday.Length>=2);
+            string stone = "";
+            switch (Convert.ToInt32(birthday))
+            {
+                case 1:
+                    stone ="Selged, selged kivid nagu aventuriin või karneool. Need mineraalid annavad moraalse ja füüsilise harmoonia, naudingu ja tervise."; break;
+                case 2:
+                    stone ="Parim on pöörata tähelepanu kuukivile ja pärlitele. Teil on sageli halvad harjumused ja need kalliskivid aitavad teil neist üle saada."; break;
+                case 3:
+                    stone ="Peridoot, peridoot ja türkiis on kõige sobivamad. Nende kalliskividega talismanid mitte ainult ei kaunista toodet, vaid aitavad kaitsta kurjade loitsude eest, saavutavad rahalise sõltumatuse ning saavutavad ühiskonnas soovitud koha ja austuse."; break;
+                case 4:
+                    stone ="Tasub meeles pidada safiiri, krüsopraasi ja jade. Safiir on aususe ja kavatsuste puhtuse sümbol, selline talisman aitab teil ära tunda teiste valesid ja kadedust. Krüsopraas ja jade köidavad teid huvitava inimese tähelepanu ja annavad teile tervise."; break;
+                case 5:
+                    stone ="Kõik smaragdisordid, aga ka tiigrisilm ja tsirkoon vastavad. Need mineraalid soodustavad tarkuse ja tähelepanelikkuse arengut. Need aitavad parandada teie rahalist olukorda ja kaitsta teid negatiivsete mõtete eest."; break;
+                case 6: 
+                    stone ="Teemandid - tervise, igavese elu, tarkuse ja harmoonia talisman."; break;
+                case 7:
+                    stone ="Ideaalsed kivid teile on rubiin ja granaat. Kõikide punaste toonide kalliskivid on amuletid, mis mõjutavad sündides antud andeid ja iseloomuomadusi."; break;
+                case 8:
+                    stone ="Oonüksi, ahhaati, jeti ja kvartsi eelistamine. Mineraalid aitavad arendada julgust, enesekindlust ning säilitada ka mõtete selgust ja mõtete puhtust."; break;
+                case 9:
+                    stone = "Parem on osta mäekristalli, roosa kvartsi, morioni ja muude vääriliste kvartsisortide ehteid. Need amuletid mõjutavad kõike salajast ja intiimset, õpetades nende omanikku paljastama teiste tõelisi mõtteid ja soove."; break;
+            }
+            return stone;
+
         }
 
         public void ShowInfo()
@@ -207,11 +392,82 @@ namespace isikukood
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Vale isikukood!");
+                Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            Console.ForegroundColor=ConsoleColor.White;
-            Console.WriteLine("Sünnipäev: "+idcode.GetBirthDate());
-            Console.WriteLine("Sugu: "+idcode.CheckGender(idcode)) ;
+            Console.WriteLine("\n");
+            string gender = idcode.CheckGender(idcode);
+            if (gender=="Poiss")
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(gender);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine(gender);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(idcode.GetBirthDateFull(idcode));
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(CheckBirth(idcode));
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Tähtkuju: "+ZodiacSign(idcode));
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Talismani kivi: "+TalismanStone(idcode));
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nVajutage Enter...");
+            Console.ReadLine();
+        }
+
+        public List<IdCode> AddIdCode(List<IdCode> idCodes)
+        {
+            Console.Clear();
+            IdCode idcode;
+            Console.Write("Kirjuta sinu isikukood: ");
+            string id = Console.ReadLine();
+            idcode = new IdCode(id);
+            foreach (IdCode item in idCodes)
+            {
+                if (item._idCode==id)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Vale isikukood!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("\nVajutage Enter...");
+                    Console.ReadLine();
+                    return idCodes;
+                }
+            }
+            if (idcode.IsValid())
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Kõik on korras!");
+                Console.ForegroundColor = ConsoleColor.White;
+                idCodes.Add(idcode);
+                Console.Write("\nVajutage Enter...");
+                Console.ReadLine();
+                return idCodes;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Vale isikukood!");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("\nVajutage Enter...");
+                Console.ReadLine();
+                return idCodes;
+            }
+            
+        }
+
+        public void ShowAllIdCode(List<IdCode> idCodes)
+        {
+            Console.Clear();
+            foreach (IdCode item in idCodes)
+            {
+                Console.WriteLine(item._idCode+"; ");
+            }
             Console.Write("\nVajutage Enter...");
             Console.ReadLine();
         }

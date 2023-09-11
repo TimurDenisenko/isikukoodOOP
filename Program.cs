@@ -14,11 +14,12 @@ namespace isikukood
         {
             Console.ForegroundColor = ConsoleColor.White;
             IdCode idcode = new IdCode("");
+            List<IdCode> idcodes = new List<IdCode>();
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("                         Menu\n\n[1] Kontroll isikukood          [2] Vaata info ");
-                Console.WriteLine("\n[3]");
+                Console.WriteLine("[3] Loo isikukood               [4] Vaata kõiki issikukoode");
                 Console.WriteLine();
                 ConsoleKeyInfo level = Console.ReadKey();
                 switch (level.KeyChar)
@@ -28,6 +29,12 @@ namespace isikukood
                         break;
                     case '2':
                         idcode.ShowInfo();
+                        break;
+                    case '3':
+                        idcodes=idcode.AddIdCode(idcodes);
+                        break;
+                    case '4':
+                        idcode.ShowAllIdCode(idcodes);
                         break;
                     default: break;
                 }
