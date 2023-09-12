@@ -271,7 +271,21 @@ namespace isikukood
                 case "11": month = "November"; break;
                 case "12": month = "Detsember"; break;
             }
-            return birthdayInList[0] +" "+ month + ", " + birthdayInList[2]+" a.";
+            int age = 0;
+            if (Convert.ToInt32(birthdayInList[1])==DateTime.Now.Month && Convert.ToInt32(birthdayInList[0])<=DateTime.Now.Day)
+            {
+                age = DateTime.Now.Year-Convert.ToInt32(birthdayInList[2]);
+            }
+            else if (Convert.ToInt32(birthdayInList[1])<DateTime.Now.Month)
+            {
+                age = DateTime.Now.Year-Convert.ToInt32(birthdayInList[2]);
+            }
+            else
+            {
+                age = DateTime.Now.Year-Convert.ToInt32(birthdayInList[2]) - 1;
+            }
+
+            return birthdayInList[0] +" "+ month + ", " + birthdayInList[2]+"a., "+age+" aastat vana";
         }
 
         public string ZodiacSign(IdCode idcode)
