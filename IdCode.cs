@@ -192,58 +192,57 @@ namespace isikukood
         public string CheckBirth(IdCode idcode)
         {
             List<char> idcodeList = idcode._idCode.ToList();
-            string HaiglaNum = idcodeList[7].ToString() + idcodeList[8].ToString() + idcodeList[9].ToString();
-            int HaiglaNumInt = Convert.ToInt32(HaiglaNum);
+            int HaiglaNum = Convert.ToInt32(idcodeList[7].ToString() + idcodeList[8].ToString() + idcodeList[9].ToString());
             string haigla="";
-            if (HaiglaNumInt >= 1 && HaiglaNumInt < 11)
+            if (HaiglaNum >= 1 && HaiglaNum < 11)
             {
                 haigla = "Kuressaare Haigla";
             }
-            else if (HaiglaNumInt >= 11 && HaiglaNumInt < 20)
+            else if (HaiglaNum >= 11 && HaiglaNum < 20)
             {
                 haigla = "Tartu Ülikooli Naistekliinik, Tartumaa, Tartu";
             }
-            else if (HaiglaNumInt >= 20 && HaiglaNumInt < 221)
+            else if (HaiglaNum >= 20 && HaiglaNum < 221)
             {
                 haigla = "Ida-Tallinna Keskhaigla, Pelgulinna sünnitusmaja, Hiiumaa, Keila, Rapla haigla, Loksa haigla";
             }
-            else if (HaiglaNumInt >= 221 && HaiglaNumInt < 271)
+            else if (HaiglaNum >= 221 && HaiglaNum < 271)
             {
                 haigla = "Ida-Viru Keskhaigla (Kohtla-Järve, endine Jõhvi)";
             }
-            else if (HaiglaNumInt >= 271 && HaiglaNumInt < 371)
+            else if (HaiglaNum >= 271 && HaiglaNum < 371)
             {
                 haigla = "Maarjamõisa Kliinikum (Tartu), Jõgeva Haigla";
             }
-            else if (HaiglaNumInt >= 371 && HaiglaNumInt < 421)
+            else if (HaiglaNum >= 371 && HaiglaNum < 421)
             {
                 haigla = "Narva Haigla";
             }
-            else if (HaiglaNumInt >= 421 && HaiglaNumInt < 471)
+            else if (HaiglaNum >= 421 && HaiglaNum < 471)
             {
                 haigla = "Pärnu Haigla";
             }
-            else if (HaiglaNumInt >= 471 && HaiglaNumInt < 491)
+            else if (HaiglaNum >= 471 && HaiglaNum < 491)
             {
                 haigla = "Pelgulinna Sünnitusmaja (Tallinn), Haapsalu haigla";
             }
-            else if (HaiglaNumInt >= 491 && HaiglaNumInt < 521)
+            else if (HaiglaNum >= 491 && HaiglaNum < 521)
             {
                 haigla = "Järvamaa Haigla (Paide)";
             }
-            else if (HaiglaNumInt >= 521 && HaiglaNumInt < 571)
+            else if (HaiglaNum >= 521 && HaiglaNum < 571)
             {
                 haigla = "Rakvere, Tapa haigla";
             }
-            else if (HaiglaNumInt >= 571 && HaiglaNumInt < 601)
+            else if (HaiglaNum >= 571 && HaiglaNum < 601)
             {
                 haigla = "Valga Haigla";
             }
-            else if (HaiglaNumInt >= 601 && HaiglaNumInt < 651)
+            else if (HaiglaNum >= 601 && HaiglaNum < 651)
             {
                 haigla = "Viljandi Haigla";
             }
-            else if (HaiglaNumInt >= 651 && HaiglaNumInt < 701)
+            else if (HaiglaNum >= 651 && HaiglaNum < 701)
             {
                 haigla = "Lõuna-Eesti Haigla (Võru), Põlva Haigla";
             }
